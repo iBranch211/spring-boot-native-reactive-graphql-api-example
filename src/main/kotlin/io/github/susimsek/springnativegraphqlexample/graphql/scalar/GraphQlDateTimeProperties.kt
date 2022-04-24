@@ -10,5 +10,4 @@ data class GraphQlDateTimeProperties(
     var localDateTime: ScalarDefinition = ScalarDefinition("LocalDateTime", null),
     var localDate: ScalarDefinition = ScalarDefinition("LocalDate", null)
 )
-
 data class ScalarDefinition(var scalarName: String?, var format: String?)

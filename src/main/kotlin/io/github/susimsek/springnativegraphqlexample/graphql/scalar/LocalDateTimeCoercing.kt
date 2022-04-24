@@ -15,7 +15,7 @@ class LocalDateTimeCoercing(
     @Throws(CoercingSerializeException::class)
     override fun serialize(dataFetcherResult: Any): String? {
         if (dataFetcherResult is LocalDateTime) {
-            return dataFetcherResult.format(formatter);
+            return dataFetcherResult.format(formatter)
         } else {
             throw CoercingSerializeException("$dataFetcherResult, Not a valid LocalDateTime")
         }
@@ -29,7 +29,7 @@ class LocalDateTimeCoercing(
     @Throws(CoercingParseLiteralException::class)
     override fun parseLiteral(input: Any): LocalDateTime {
         if (input is StringValue) {
-            return LocalDateTime.parse(input.value, formatter);
+            return LocalDateTime.parse(input.value, formatter)
         }
         throw CoercingParseLiteralException("$input, Value is not a valid ISO LocalDateTime")
     }

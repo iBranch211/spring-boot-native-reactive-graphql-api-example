@@ -7,10 +7,9 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.stereotype.Component
 import java.nio.ByteBuffer
 import java.nio.charset.StandardCharsets
-import java.util.*
+import java.util.Base64
 import javax.crypto.Cipher
 import javax.crypto.spec.GCMParameterSpec
-
 
 private const val ENCRYPT_ALGO = "AES/GCM/NoPadding"
 private const val TAG_LENGTH_BIT = 128
@@ -19,8 +18,7 @@ private const val IV_LENGTH_BYTE = 12
 private const val SALT_LENGTH_BYTE = 16
 private val UTF_8 = StandardCharsets.UTF_8
 
-
-
+@Suppress("TooGenericExceptionCaught")
 @Component
 @EnableConfigurationProperties(CipherProperties::class)
 class SecurityCipher(
@@ -28,7 +26,6 @@ class SecurityCipher(
 ) {
     private val log = LoggerFactory.getLogger(javaClass)
     private var cipher: Cipher = Cipher.getInstance(ENCRYPT_ALGO)
-
 
     fun encrypt(strToEncrypt: String): String? {
         try {

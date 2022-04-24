@@ -20,16 +20,18 @@ import javax.validation.Valid
 
 @Controller
 class UserController(private val userService: UserService) {
-
     @MutationMapping
-    fun createUser(@Argument @Valid input:AddUserInput): Mono<UserPayload> {
+    fun createUser(@Argument @Valid input: AddUserInput): Mono<UserPayload> {
         return userService.createUser(input)
     }
 
     @QueryMapping
-    fun users(@Argument page: Int?, @Argument size: Int?,
-              @Argument filter: UserFilter?,
-              @Argument orders: MutableList<UserOrder>?): Flux<UserPayload> {
+    fun users(
+        @Argument page: Int?,
+        @Argument size: Int?,
+        @Argument filter: UserFilter?,
+        @Argument orders: MutableList<UserOrder>?
+    ): Flux<UserPayload> {
         val pageNo = page ?: DEFAULT_PAGE_NO
         val sizeNo = (size ?: DEFAULT_SIZE).coerceAtMost(MAX_SIZE)
         val sort = orders?.map(UserOrder::toOrder)?.let { Sort.by(it) } ?: Sort.unsorted()

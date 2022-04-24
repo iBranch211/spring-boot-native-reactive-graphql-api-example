@@ -1,6 +1,5 @@
 package io.github.susimsek.springnativegraphqlexample.config
 
-
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration
 import org.springframework.boot.autoconfigure.mongo.MongoReactiveAutoConfiguration
 import org.springframework.context.annotation.Bean
@@ -14,8 +13,8 @@ import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRep
 import java.time.Clock
 import java.time.OffsetDateTime
 import java.time.ZoneId
-import java.util.*
-
+import java.util.Date
+import java.util.Optional
 
 @Configuration(proxyBeanMethods = false)
 @EnableReactiveMongoRepositories("io.github.susimsek.springnativegraphqlexample.repository")
@@ -52,5 +51,4 @@ class DatabaseConfig {
             return OffsetDateTime.ofInstant(source.toInstant(), ZoneId.systemDefault())
         }
     }
-
 }

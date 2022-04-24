@@ -31,7 +31,7 @@ object ScalarUtil {
         return GraphQLScalarType.newScalar()
             .name(name ?: "LocalDate")
             .description("LocalDate type")
-            .coercing(LocalDateTimeCoercing(dateTimeFormatter))
+            .coercing(LocalDateCoercing(dateTimeFormatter))
             .build()
     }
 }

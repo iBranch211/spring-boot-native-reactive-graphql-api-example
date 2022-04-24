@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
-
 @Component
 @PreAuthorize("isAuthenticated()")
 class PostService(
@@ -24,7 +23,6 @@ class PostService(
     private val postMapper: PostMapper,
     private val userService: UserService
 ) {
-
 
     fun createPost(input: AddPostInput): Mono<PostPayload> {
         val entity = postMapper.toEntity(input)
@@ -81,7 +79,7 @@ class PostService(
     }
 
     fun getPostsWithAuthors(posts: MutableList<PostPayload>): Flux<UserPayload> {
-        val authorIds = posts.map{ post -> post.createdBy!!}.toMutableSet()
+        val authorIds = posts.map { post -> post.createdBy!! }.toMutableSet()
         val authors = userService.getUserByIdIn(authorIds)
         return Flux.fromIterable(posts)
             .flatMap { post ->
@@ -90,17 +88,17 @@ class PostService(
     }
 
     fun getPostsByCreatedByIn(userIds: MutableSet<String>?): Flux<PostPayload> {
-        return  postRepository.findAllByCreatedByIn(userIds)
+        return postRepository.findAllByCreatedByIn(userIds)
             .map(postMapper::toType)
     }
 
     fun getUsersWithPosts(users: MutableList<UserPayload>): Mono<Map<UserPayload, MutableList<PostPayload>>> {
-        val userIds = users.map{ user -> user.id!!}.toMutableSet()
+        val userIds = users.map { user -> user.id!! }.toMutableSet()
         return getPostsByCreatedByIn(userIds)
-            .collectMultimap{it.createdBy!!}
+            .collectMultimap { it.createdBy!! }
             .map { m ->
                 m.entries.associate {
-                        entry -> users.find{ it.id.equals(entry.key) }!! to
+                        entry -> users.find { it.id.equals(entry.key) }!! to
                             entry.value.toMutableList()
                 }
             }

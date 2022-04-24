@@ -5,7 +5,6 @@ import org.springframework.data.annotation.LastModifiedBy
 import org.springframework.data.mongodb.core.index.Indexed
 import org.springframework.data.mongodb.core.mapping.Field
 
-
 open class AbstractUserAuditingEntity(
 
     @CreatedBy

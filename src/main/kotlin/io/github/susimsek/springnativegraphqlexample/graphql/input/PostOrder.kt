@@ -4,11 +4,10 @@ import io.github.susimsek.springnativegraphqlexample.graphql.enumerated.OrderTyp
 import io.github.susimsek.springnativegraphqlexample.graphql.enumerated.PostOrderField
 import org.springframework.data.domain.Sort
 
-
 data class PostOrder(
     var field: PostOrderField? = null,
-    var order: OrderType? = null) {
-
+    var order: OrderType? = null
+) {
     fun toOrder(): Sort.Order {
         val direction: Sort.Direction =
             if (order == null) Sort.DEFAULT_DIRECTION

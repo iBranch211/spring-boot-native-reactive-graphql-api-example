@@ -8,7 +8,6 @@ import graphql.schema.CoercingSerializeException
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 
-
 class OffsetDateTimeCoercing(
     private val formatter: DateTimeFormatter
 ) : Coercing<OffsetDateTime, String?> {

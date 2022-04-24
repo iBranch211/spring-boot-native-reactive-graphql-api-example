@@ -1,6 +1,11 @@
 package io.github.susimsek.springnativegraphqlexample.security.jwt
 
-import io.jsonwebtoken.*
+import io.jsonwebtoken.ExpiredJwtException
+import io.jsonwebtoken.JwtParser
+import io.jsonwebtoken.Jwts
+import io.jsonwebtoken.MalformedJwtException
+import io.jsonwebtoken.SignatureAlgorithm
+import io.jsonwebtoken.UnsupportedJwtException
 import io.jsonwebtoken.io.Decoders
 import io.jsonwebtoken.jackson.io.JacksonSerializer
 import io.jsonwebtoken.security.Keys
@@ -13,8 +18,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.User
 import org.springframework.stereotype.Component
 import java.security.Key
-import java.util.*
-
+import java.util.Date
 
 private const val AUTHORITIES_KEY = "auth"
 
@@ -23,7 +27,7 @@ private const val INVALID_JWT_TOKEN = "Invalid JWT token."
 @Component
 @EnableConfigurationProperties(TokenProperties::class)
 class TokenProvider(
-    private val tokenProperties: TokenProperties
+    tokenProperties: TokenProperties
 ) {
 
     private val log = LoggerFactory.getLogger(javaClass)
@@ -64,7 +68,7 @@ class TokenProvider(
         val claims = jwtParser?.parseClaimsJws(token)?.body
 
         val authorities = claims?.get(AUTHORITIES_KEY)?.toString()?.splitToSequence(",")
-            ?.filter{ it.trim().isNotEmpty() }?.mapTo(mutableListOf()) { SimpleGrantedAuthority(it) }
+            ?.filter { it.trim().isNotEmpty() }?.mapTo(mutableListOf()) { SimpleGrantedAuthority(it) }
 
         val principal = User(claims?.subject, "", authorities)
 
@@ -86,7 +90,7 @@ class TokenProvider(
             log.trace(INVALID_JWT_TOKEN, e)
         } catch (e: SignatureException) {
 
-            log.trace(INVALID_JWT_TOKEN, e);
+            log.trace(INVALID_JWT_TOKEN, e)
         } catch (e: IllegalArgumentException) {
             log.error("Token validation error {}", e.message)
         }

@@ -1,6 +1,5 @@
 package io.github.susimsek.springnativegraphqlexample.graphql.controller
 
-
 import io.github.susimsek.springnativegraphqlexample.graphql.DEFAULT_PAGE_NO
 import io.github.susimsek.springnativegraphqlexample.graphql.DEFAULT_SIZE
 import io.github.susimsek.springnativegraphqlexample.graphql.MAX_SIZE
@@ -20,7 +19,6 @@ import org.springframework.stereotype.Controller
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import javax.validation.Valid
-
 
 @Controller
 class PostController(private val postService: PostService) {
@@ -51,8 +49,11 @@ class PostController(private val postService: PostService) {
     }
 
     @QueryMapping
-    fun posts(@Argument page: Int?, @Argument size: Int?,
-              @Argument orders: MutableList<PostOrder>?): Flux<PostPayload> {
+    fun posts(
+        @Argument page: Int?,
+        @Argument size: Int?,
+        @Argument orders: MutableList<PostOrder>?
+    ): Flux<PostPayload> {
         val pageNo = page ?: DEFAULT_PAGE_NO
         val sizeNo = (size ?: DEFAULT_SIZE).coerceAtMost(MAX_SIZE)
         val sort = orders?.map(PostOrder::toOrder)?.let { Sort.by(it) } ?: Sort.unsorted()

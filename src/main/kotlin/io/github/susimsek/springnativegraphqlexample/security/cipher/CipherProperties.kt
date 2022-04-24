@@ -5,6 +5,6 @@ import org.springframework.boot.context.properties.ConstructorBinding
 
 @ConfigurationProperties("security.cipher")
 @ConstructorBinding
-data class CipherProperties (
+data class CipherProperties(
     var base64Secret: String = "c2VjdXJlQ0RDS2V5"
 )

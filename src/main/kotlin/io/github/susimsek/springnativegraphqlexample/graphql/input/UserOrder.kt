@@ -4,10 +4,10 @@ import io.github.susimsek.springnativegraphqlexample.graphql.enumerated.OrderTyp
 import io.github.susimsek.springnativegraphqlexample.graphql.enumerated.UserOrderField
 import org.springframework.data.domain.Sort
 
-
 data class UserOrder(
     var field: UserOrderField? = null,
-    var order: OrderType? = null) {
+    var order: OrderType? = null
+) {
 
     fun toOrder(): Sort.Order {
         val direction: Sort.Direction =

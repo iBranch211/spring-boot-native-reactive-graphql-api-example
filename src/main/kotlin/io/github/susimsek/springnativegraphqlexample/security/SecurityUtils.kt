@@ -10,7 +10,6 @@ import org.springframework.security.core.context.SecurityContext
 import org.springframework.security.core.userdetails.UserDetails
 import reactor.core.publisher.Mono
 
-
 /**
  * Get the login of the current user.
  *
@@ -21,10 +20,9 @@ fun getCurrentUserLogin(): Mono<String> =
         .map(SecurityContext::getAuthentication)
         .flatMap { Mono.justOrEmpty(extractPrincipal(it)) }
 
-
 fun extractPrincipal(authentication: Authentication?): String? {
 
-    if(authentication == null) {
+    if (authentication == null) {
         return null
     }
 
@@ -34,7 +32,6 @@ fun extractPrincipal(authentication: Authentication?): String? {
         else -> null
     }
 }
-
 
 /**
  * Get the JWT of the current user.
@@ -63,7 +60,6 @@ fun isAuthenticated(): Mono<Boolean> {
         }
 }
 
-
 /**
 * Checks if the current user has any of the authorities.
 *
@@ -74,8 +70,7 @@ fun hasCurrentUserAnyOfAuthorities(vararg authorities: String): Mono<Boolean> {
    return ReactiveSecurityContextHolder.getContext()
        .map(SecurityContext::getAuthentication)
        .map(Authentication::getAuthorities)
-       .map { 
-           it
+       .map { it
            .map(GrantedAuthority::getAuthority)
            .any { authorities.contains(it) }
         }
@@ -87,7 +82,7 @@ fun hasCurrentUserAnyOfAuthorities(vararg authorities: String): Mono<Boolean> {
 * @param authorities the authorities to check.
 * @return true if the current user has none of the authorities, false otherwise.
 */
-fun hasCurrentUserNoneOfAuthorities(vararg authorities: String):  Mono<Boolean> {
+fun hasCurrentUserNoneOfAuthorities(vararg authorities: String): Mono<Boolean> {
    return hasCurrentUserAnyOfAuthorities(*authorities).map { !it }
 }
 
@@ -100,6 +95,5 @@ fun hasCurrentUserNoneOfAuthorities(vararg authorities: String):  Mono<Boolean> 
 fun hasCurrentUserThisAuthority(authority: String): Mono<Boolean> {
    return hasCurrentUserAnyOfAuthorities(authority)
 }
-
 
 

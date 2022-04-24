@@ -8,9 +8,10 @@ import org.springframework.web.server.WebFilter
 import org.springframework.web.server.WebFilterChain
 import reactor.core.publisher.Mono
 
-
-class JWTFilter(private val tokenProvider: TokenProvider,
-                private val securityCipher: SecurityCipher) : WebFilter {
+class JWTFilter(
+    private val tokenProvider: TokenProvider,
+    private val securityCipher: SecurityCipher
+) : WebFilter {
 
     override fun filter(exchange: ServerWebExchange, chain: WebFilterChain): Mono<Void> {
         val jwt = resolveToken(exchange.request)

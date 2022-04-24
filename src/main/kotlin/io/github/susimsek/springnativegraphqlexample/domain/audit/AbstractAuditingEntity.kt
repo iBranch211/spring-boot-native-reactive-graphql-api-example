@@ -6,8 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Field
 import java.time.Clock
 import java.time.OffsetDateTime
 
-
-open class AbstractAuditingEntity (
+open class AbstractAuditingEntity(
 
     @CreatedDate
     @Field("created_date")

@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.index.Indexed
 import org.springframework.data.mongodb.core.mapping.Document
 
 @Document(collection = "post")
-data class Post (
+data class Post(
 
     var title: String? = null,
 
@@ -14,8 +14,7 @@ data class Post (
 
     @Indexed
     var status: PostStatus? = null,
-
-    ) : BaseEntity() {
+) : BaseEntity() {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

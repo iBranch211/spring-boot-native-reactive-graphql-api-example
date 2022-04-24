@@ -26,8 +26,8 @@ data class UserFilter(
         if (!email.isNullOrBlank()) {
             criteria.add(Criteria.where("email").`is`(email))
         }
-        if (criteria.isEmpty())  {
-            return null;
+        if (criteria.isEmpty()) {
+            return null
         }
         return Criteria().andOperator(criteria)
     }

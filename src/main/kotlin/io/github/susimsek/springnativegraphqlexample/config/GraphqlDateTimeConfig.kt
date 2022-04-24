@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.graphql.execution.RuntimeWiringConfigurer
 
-
 @Configuration(proxyBeanMethods = false)
 @EnableConfigurationProperties(GraphQlDateTimeProperties::class)
 class GraphqlDateTimeConfig {
@@ -35,14 +34,15 @@ class GraphqlDateTimeConfig {
     }
 
     @Bean
-    fun graphqlDateTimeConfigurer(graphQlOffsetDateTimeScalar: GraphQLScalarType,
-                                 graphQlLocalDateTimeScalar: GraphQLScalarType,
-                                 graphQlLocalDateScalar: GraphQLScalarType): RuntimeWiringConfigurer {
+    fun graphqlDateTimeConfigurer(
+        graphQlOffsetDateTimeScalar: GraphQLScalarType,
+        graphQlLocalDateTimeScalar: GraphQLScalarType,
+        graphQlLocalDateScalar: GraphQLScalarType
+    ): RuntimeWiringConfigurer {
         return RuntimeWiringConfigurer {
                 builder ->
                 builder.scalar(graphQlOffsetDateTimeScalar)
                 builder.scalar(graphQlLocalDateTimeScalar)
         }
     }
-
 }

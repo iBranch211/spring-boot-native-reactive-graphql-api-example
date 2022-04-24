@@ -6,7 +6,7 @@ import javax.validation.constraints.Size
 data class UpdatePostInput(
 
     @field:NotBlank
-    @field:Size(min=24, max = 24)
+    @field:Size(min = 24, max = 24)
     var id: String? = null,
 
     @field:NotBlank

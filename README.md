@@ -52,7 +52,7 @@ mvn -Psonar initialize sonar:sonar
 The docker image of native application can be built as follows:
 
 ```sh
-mvn -Prod spring-boot:build-image
+mvn -Pprod spring-boot:build-image
 ```
 
 ## Deployment with Docker Compose

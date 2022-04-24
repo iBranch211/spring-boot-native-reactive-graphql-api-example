@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.mongodb.core.mapping.Field
 
 @Document(collection = "user")
-data class User (
+data class User(
     @Id
     var id: String? = null,
 
@@ -20,7 +20,6 @@ data class User (
 
     @Field("first_name")
     var firstName: String? = null,
-
 
     @Field("last_name")
     var lastName: String? = null,

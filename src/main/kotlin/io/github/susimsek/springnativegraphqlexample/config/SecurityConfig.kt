@@ -28,8 +28,6 @@ class SecurityConfig(
     private val securityCipher: SecurityCipher,
     private val securityMatcherProperties: SecurityMatcherProperties
 ) {
-
-
     @Bean
     fun passwordEncoder() = BCryptPasswordEncoder()
 

@@ -10,4 +10,5 @@ data class LoginInput(
 
     @field:NotBlank
     @field:Size(min = 4, max = 100)
-    var password: String? = null)
+    var password: String? = null
+)

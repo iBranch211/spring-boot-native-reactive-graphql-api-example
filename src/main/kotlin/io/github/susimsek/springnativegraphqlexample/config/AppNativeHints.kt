@@ -6,7 +6,13 @@ import io.github.susimsek.springnativegraphqlexample.graphql.enumerated.OrderTyp
 import io.github.susimsek.springnativegraphqlexample.graphql.enumerated.PostOrderField
 import io.github.susimsek.springnativegraphqlexample.graphql.enumerated.PostStatus
 import io.github.susimsek.springnativegraphqlexample.graphql.enumerated.UserOrderField
-import io.github.susimsek.springnativegraphqlexample.graphql.input.*
+import io.github.susimsek.springnativegraphqlexample.graphql.input.AddPostInput
+import io.github.susimsek.springnativegraphqlexample.graphql.input.AddUserInput
+import io.github.susimsek.springnativegraphqlexample.graphql.input.LoginInput
+import io.github.susimsek.springnativegraphqlexample.graphql.input.PostOrder
+import io.github.susimsek.springnativegraphqlexample.graphql.input.UpdatePostInput
+import io.github.susimsek.springnativegraphqlexample.graphql.input.UserFilter
+import io.github.susimsek.springnativegraphqlexample.graphql.input.UserOrder
 import io.github.susimsek.springnativegraphqlexample.graphql.scalar.GraphQlDateTimeProperties
 import io.github.susimsek.springnativegraphqlexample.graphql.scalar.ScalarUtil
 import io.github.susimsek.springnativegraphqlexample.graphql.type.PostPayload
@@ -24,28 +30,28 @@ import org.springframework.data.repository.query.FluentQuery
 import org.springframework.nativex.hint.TypeAccess
 import org.springframework.nativex.hint.TypeHint
 
-
 @TypeHint(
     types = [
-    org.springframework.data.repository.PagingAndSortingRepository::class,
-    org.springframework.data.repository.CrudRepository::class,
-    org.springframework.data.repository.Repository::class,
-    org.springframework.data.repository.query.QueryByExampleExecutor::class,
-    java.util.Optional::class,
-    java.time.OffsetDateTime::class,
-    java.time.LocalDateTime::class,
-    java.time.LocalDate::class,
-    FluentQuery::class,
-    FluentQuery.FetchableFluentQuery::class,
-    FluentQuery.ReactiveFluentQuery::class],
-    access = [TypeAccess.QUERY_PUBLIC_METHODS])
+        org.springframework.data.repository.PagingAndSortingRepository::class,
+        org.springframework.data.repository.CrudRepository::class,
+        org.springframework.data.repository.Repository::class,
+        org.springframework.data.repository.query.QueryByExampleExecutor::class,
+        java.util.Optional::class,
+        java.time.OffsetDateTime::class,
+        java.time.LocalDateTime::class,
+        java.time.LocalDate::class,
+        FluentQuery::class,
+        FluentQuery.FetchableFluentQuery::class,
+        FluentQuery.ReactiveFluentQuery::class],
+    access = [TypeAccess.QUERY_PUBLIC_METHODS]
+)
 
 @TypeHint(
     typeNames = [
         "io.github.susimsek.springnativegraphqlexample.graphql.scalar.GraphQlDateTimeProperties\$ScalarDefinition"
-    ],
-    access = [TypeAccess.RESOURCE, TypeAccess.PUBLIC_CLASSES, TypeAccess.DECLARED_CLASSES, TypeAccess.DECLARED_CONSTRUCTORS, TypeAccess.PUBLIC_CONSTRUCTORS, TypeAccess.DECLARED_METHODS, TypeAccess.PUBLIC_METHODS
-        , TypeAccess.PUBLIC_FIELDS, TypeAccess.DECLARED_FIELDS]
+    ], access = [TypeAccess.RESOURCE, TypeAccess.PUBLIC_CLASSES, TypeAccess.DECLARED_CLASSES,
+        TypeAccess.DECLARED_CONSTRUCTORS, TypeAccess.PUBLIC_CONSTRUCTORS, TypeAccess.DECLARED_METHODS,
+        TypeAccess.PUBLIC_METHODS, TypeAccess.PUBLIC_FIELDS, TypeAccess.DECLARED_FIELDS]
 )
 
 @TypeHint(
@@ -74,10 +80,12 @@ import org.springframework.nativex.hint.TypeHint
         User::class,
         Post::class,
         UserRepositoryOverride::class,
-        UserRepositoryOverrideImpl::class],
-    access = [TypeAccess.RESOURCE, TypeAccess.PUBLIC_CLASSES, TypeAccess.DECLARED_CLASSES, TypeAccess.DECLARED_CONSTRUCTORS, TypeAccess.PUBLIC_CONSTRUCTORS, TypeAccess.DECLARED_METHODS, TypeAccess.PUBLIC_METHODS, TypeAccess.PUBLIC_FIELDS, TypeAccess.DECLARED_FIELDS]
+        UserRepositoryOverrideImpl::class], access = [
+        TypeAccess.RESOURCE, TypeAccess.PUBLIC_CLASSES, TypeAccess.DECLARED_CLASSES,
+        TypeAccess.DECLARED_CONSTRUCTORS, TypeAccess.PUBLIC_CONSTRUCTORS, TypeAccess.DECLARED_METHODS,
+        TypeAccess.PUBLIC_METHODS, TypeAccess.PUBLIC_FIELDS, TypeAccess.DECLARED_FIELDS]
 )
 @Lazy(false)
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(name = ["org.springframework.nativex.NativeListener"])
-class AppNativeHints 
+class AppNativeHints

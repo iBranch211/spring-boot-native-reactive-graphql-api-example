@@ -15,7 +15,7 @@ class LocalDateCoercing(
     @Throws(CoercingSerializeException::class)
     override fun serialize(dataFetcherResult: Any): String? {
         if (dataFetcherResult is LocalDate) {
-            return dataFetcherResult.format(formatter);
+            return dataFetcherResult.format(formatter)
         } else {
             throw CoercingSerializeException("$dataFetcherResult, Not a valid LocalDate")
         }
