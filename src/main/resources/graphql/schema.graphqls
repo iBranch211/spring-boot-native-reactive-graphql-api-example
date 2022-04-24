@@ -1,0 +1,105 @@
+scalar OffsetDateTime
+
+type Query {
+    users(page: Int, size: Int, filter: UserFilter, orders: [UserOrder!]): [UserPayload!]!
+    user(id: ID!): UserPayload!
+    me: UserPayload!
+    post(id: ID!): PostPayload!
+    posts(page: Int, size: Int, orders: [PostOrder!]): [PostPayload!]!
+}
+
+type Mutation {
+    login(input: LoginInput!): Token!
+    createUser(input: AddUserInput!): UserPayload!
+    createPost(input: AddPostInput!): PostPayload!
+    updatePost(input: UpdatePostInput!): PostPayload!
+    deletePost(id: ID!): ID!
+}
+
+input LoginInput {
+    login: String!
+    password: String!
+}
+
+input AddUserInput {
+    username: String!
+    password: String!
+    firstName: String!
+    lastName: String!
+    email: String!
+}
+
+enum UserOrderField {
+    id
+    username
+    firstName
+    lastName
+    email
+    createdDate
+}
+
+enum OrderType {
+    ASC
+    DESC
+}
+
+input UserFilter {
+    username: String
+    firstName: String
+    lastName: String
+    email: String
+}
+
+input UserOrder {
+    field: UserOrderField!
+    order: OrderType
+}
+
+input AddPostInput {
+    title: String!
+    content: String!
+}
+
+input UpdatePostInput {
+    id: ID!
+    title: String!
+    content: String!
+}
+
+enum PostStatus {
+    DRAFT, PENDING_MODERATION, PUBLISHED
+}
+
+enum PostOrderField {
+    id
+    title
+    createdDate
+}
+
+input PostOrder {
+    field: PostOrderField!
+    order: OrderType
+}
+
+type UserPayload {
+    id: ID!
+    username: String
+    firstName: String
+    lastName: String
+    email: String
+    createdDate: OffsetDateTime
+    posts: [PostPayload]
+}
+
+type PostPayload{
+    id: ID!
+    title: String!
+    content: String!
+    status: PostStatus!
+    createdDate: OffsetDateTime!
+    author: UserPayload!
+}
+
+type Token {
+    token: String!
+}

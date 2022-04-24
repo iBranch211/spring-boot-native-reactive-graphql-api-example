@@ -1,0 +1,27 @@
+{{- if .Values.istio.enabled }}
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: {{ template "app.shortname" . }}-api
+  labels:
+  {{- include "api.labels" . | nindent 4 }}
+spec:
+  hosts:
+    - {{ .Values.api.istio.gateway.hostName }}
+  gateways:
+      - {{ template "app.shortname" . }}-api
+  http:
+    - match:
+        - uri:
+            prefix: {{ .Values.api.istio.gateway.path }}
+      route:
+        - destination:
+            host: {{ template "app.shortname" . }}-api
+            port:
+              number: {{ .Values.api.service.port }}
+            subset: 'v1'
+          weight: 100
+      retries:
+        attempts: 3
+        perTryTimeout: 2s
+  {{- end }}

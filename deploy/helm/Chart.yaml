@@ -1,0 +1,21 @@
+apiVersion: v2
+name: spring-native-graphql-example
+description: Spring Native Reactive GraphQL Application
+icon: https://github.com/susimsek/spring-native-example/blob/main/images/spring-native-example.png
+keywords:
+  - spring
+  - reactive
+  - native
+  - spring-native
+  - spring-boot
+  - redux
+  - graalvm
+
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+dependencies:
+  - name: mongodb
+    version: 11.1.10
+    repository: https://charts.bitnami.com/bitnami
+    condition: mongodb.enabled
