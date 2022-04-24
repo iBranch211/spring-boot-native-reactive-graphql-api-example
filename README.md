@@ -2,7 +2,7 @@
 
 Spring Boot Kotlin Native Reactive Graphql Based API Example with JWT Authentication
 
-<img src="https://github.com/susimsek/spring-boot-native-reactive-graphql-api-example/blob/main/images/introduction.png" alt="Spring Boot Kotlin Native Reactive Graphql Based API Example with JWT Authentication" width="100%" height="100%"/> 
+<img src="https://github.com/susimsek/spring-boot-native-reactive-graphql-api-example/blob/master/images/introduction.png" alt="Spring Boot Kotlin Native Reactive Graphql Based API Example with JWT Authentication" width="100%" height="100%"/> 
 
 # Graphql
 GraphQL is a query language and server-side runtime for application programming interfaces (APIs) that prioritizes giving clients exactly the data they request and no more.
