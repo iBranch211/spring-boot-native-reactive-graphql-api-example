@@ -43,6 +43,7 @@ You can test code quality locally via sonarqube by typing the following command
 
 ```sh
 mvn -Psonar initialize sonar:sonar
+```
 
 # Docker
 
