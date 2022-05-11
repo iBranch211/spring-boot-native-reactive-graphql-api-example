@@ -29,7 +29,7 @@ data class User(
 
     var activated: Boolean? = false,
 
-) : AbstractAuditingEntity() {
+    ) : AbstractAuditingEntity() {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is User) return false

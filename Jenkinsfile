@@ -3,40 +3,40 @@
 pipeline {
     agent any
     tools {
-      jdk 'jdk17'
-      maven 'maven3'
+        jdk 'jdk17'
+        maven 'maven3'
     }
 
     environment {
-         imageTag = 'docker.io/suayb/spring-native-reactive-graphql-example/latest'
-         registryCredential = 'dockerhub-registry'
-        }
+        imageTag = 'docker.io/suayb/spring-native-reactive-graphql-example/latest'
+        registryCredential = 'dockerhub-registry'
+    }
 
     stages {
         stage('checkout scm') {
-           steps {
-             checkout scm
-           }
+            steps {
+                checkout scm
+            }
         }
 
         stage('check java') {
-          steps {
-            sh 'java -version'
-          }
-       }
+            steps {
+                sh 'java -version'
+            }
+        }
 
-       stage('clean') {
-         steps {
-           sh 'mvn -ntp clean'
-         }
-       }
+        stage('clean') {
+            steps {
+                sh 'mvn -ntp clean'
+            }
+        }
 
         stage('test') {
             steps {
                 script {
                     try {
                         sh 'mvn -ntp test'
-                    } catch(err) {
+                    } catch (err) {
                         throw err
                     }
                 }
@@ -57,15 +57,15 @@ pipeline {
             }
         }
 
-      stage("Publish Docker") {
-          stage("Build native image") {
-              steps {
-                  withCredentials([usernamePassword(credentialsId:'docker-registry', passwordVariable: 'DOCKER_REGISTRY_PWD', usernameVariable: 'DOCKER_REGISTRY_USER')]) {
-                      sh 'mvn -ntp -Pprod spring-boot:build-image -DskipTests'
-                  }
-              }
-          }
-      }
+        stage("Publish Docker") {
+            stage("Build native image") {
+                steps {
+                    withCredentials([usernamePassword(credentialsId: 'docker-registry', passwordVariable: 'DOCKER_REGISTRY_PWD', usernameVariable: 'DOCKER_REGISTRY_USER')]) {
+                        sh 'mvn -ntp -Pprod spring-boot:build-image -DskipTests'
+                    }
+                }
+            }
+        }
     }
 
     post {

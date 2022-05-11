@@ -20,8 +20,8 @@ class AuthenticationService(
             authenticationManager.authenticate(UsernamePasswordAuthenticationToken(login.login, login.password))
                 .map { securityCipher.encrypt(tokenProvider.createToken(it))!! }
         }
-            .map {
-                jwt -> Token(jwt)
-        }
+            .map { jwt ->
+                Token(jwt)
+            }
     }
 }

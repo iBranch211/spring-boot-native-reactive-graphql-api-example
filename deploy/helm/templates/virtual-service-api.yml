@@ -9,7 +9,7 @@ spec:
   hosts:
     - {{ .Values.api.istio.gateway.hostName }}
   gateways:
-      - {{ template "app.shortname" . }}-api
+    - {{ template "app.shortname" . }}-api
   http:
     - match:
         - uri:

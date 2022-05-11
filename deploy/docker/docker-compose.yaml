@@ -13,7 +13,7 @@ services:
     restart: unless-stopped
     container_name: api
     depends_on:
-     - mongodb
+      - mongodb
     networks:
       - test
     environment:

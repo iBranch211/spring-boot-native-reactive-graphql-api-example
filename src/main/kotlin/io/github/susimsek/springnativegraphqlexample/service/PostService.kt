@@ -8,7 +8,7 @@ import io.github.susimsek.springnativegraphqlexample.graphql.type.UserPayload
 import io.github.susimsek.springnativegraphqlexample.repository.PostRepository
 import io.github.susimsek.springnativegraphqlexample.security.getCurrentUserLogin
 import io.github.susimsek.springnativegraphqlexample.service.mapper.PostMapper
-import io.github.susimsek.tournamentbackend.exception.ResourceNotFoundException
+import io.github.susimsek.springnativegraphqlexample.exception.ResourceNotFoundException
 import org.springframework.data.domain.Pageable
 import org.springframework.security.access.AccessDeniedException
 import org.springframework.security.access.prepost.PreAuthorize
@@ -34,16 +34,18 @@ class PostService(
 
     fun updatePost(input: UpdatePostInput): Mono<PostPayload> {
         return getCurrentUserLogin()
-            .flatMap {
-                authUser ->
+            .flatMap { authUser ->
                 postRepository.findById(input.id!!)
                     .flatMap {
                         if (it.createdBy == authUser) {
                             postMapper.partialUpdate(it, input)
                             postRepository.save(it)
                         } else {
-                            Mono.error(AccessDeniedException(
-                                "User with id $authUser not authorized to access this post ${it.id}"))
+                            Mono.error(
+                                AccessDeniedException(
+                                    "User with id $authUser not authorized to access this post ${it.id}"
+                                )
+                            )
                         }
                     }.switchIfEmpty(Mono.error((ResourceNotFoundException("Post with id ${input.id} was not found"))))
             }.map(postMapper::toType)
@@ -51,16 +53,18 @@ class PostService(
 
     fun deletePost(id: String): Mono<String> {
         return getCurrentUserLogin()
-            .flatMap {
-                    authUser ->
+            .flatMap { authUser ->
                 postRepository.findById(id)
                     .flatMap {
                         if (it.createdBy == authUser) {
                             postRepository.delete(it)
-                            .thenReturn(it)
+                                .thenReturn(it)
                         } else {
-                            Mono.error(AccessDeniedException(
-                                "User with id $authUser not authorized to access this post ${it.id}"))
+                            Mono.error(
+                                AccessDeniedException(
+                                    "User with id $authUser not authorized to access this post ${it.id}"
+                                )
+                            )
                         }
                     }
                     .switchIfEmpty(Mono.error((ResourceNotFoundException("Post with id $id was not found"))))
@@ -97,8 +101,8 @@ class PostService(
         return getPostsByCreatedByIn(userIds)
             .collectMultimap { it.createdBy!! }
             .map { m ->
-                m.entries.associate {
-                        entry -> users.find { it.id.equals(entry.key) }!! to
+                m.entries.associate { entry ->
+                    users.find { it.id.equals(entry.key) }!! to
                             entry.value.toMutableList()
                 }
             }

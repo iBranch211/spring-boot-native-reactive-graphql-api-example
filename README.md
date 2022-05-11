@@ -5,10 +5,13 @@ Spring Boot Kotlin Native Reactive Graphql Based API Example with JWT Authentica
 <img src="https://github.com/susimsek/spring-boot-native-reactive-graphql-api-example/blob/master/images/introduction.png" alt="Spring Boot Kotlin Native Reactive Graphql Based API Example with JWT Authentication" width="100%" height="100%"/> 
 
 # Graphql
-GraphQL is a query language and server-side runtime for application programming interfaces (APIs) that prioritizes giving clients exactly the data they request and no more.
-GraphQL is designed to make APIs fast, flexible, and developer-friendly. 
-It can even be deployed within an integrated development environment (IDE) known as GraphiQL. 
-As an alternative to REST, GraphQL lets developers construct requests that pull data from multiple data sources in a single API call.
+
+GraphQL is a query language and server-side runtime for application programming interfaces (APIs) that prioritizes
+giving clients exactly the data they request and no more.
+GraphQL is designed to make APIs fast, flexible, and developer-friendly.
+It can even be deployed within an integrated development environment (IDE) known as GraphiQL.
+As an alternative to REST, GraphQL lets developers construct requests that pull data from multiple data sources in a
+single API call.
 
 # Development
 
@@ -63,7 +66,7 @@ You can start native graphql api (accessible on http://localhost:9090/graphiql) 
  ./deploy.sh -d
 ```
 
-You can uninstall native graphql api  the following bash command
+You can uninstall native graphql api the following bash command
 
 ```sh
  ./deploy.sh -d -r
@@ -83,7 +86,8 @@ You can uninstall native graphql api the following bash command
  ./deploy.sh -k -r
 ```
 
-You can upgrade native reactive Graphql api (if you have made any changes to the generated manifests) by running the following bash command
+You can upgrade native reactive Graphql api (if you have made any changes to the generated manifests) by running the
+following bash command
 
 ```sh
  ./deploy.sh -u

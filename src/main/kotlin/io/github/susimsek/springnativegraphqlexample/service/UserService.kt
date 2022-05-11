@@ -6,8 +6,8 @@ import io.github.susimsek.springnativegraphqlexample.graphql.type.UserPayload
 import io.github.susimsek.springnativegraphqlexample.repository.UserRepository
 import io.github.susimsek.springnativegraphqlexample.security.getCurrentUserLogin
 import io.github.susimsek.springnativegraphqlexample.service.mapper.UserMapper
-import io.github.susimsek.tournamentbackend.exception.ResourceAlreadyExistsException
-import io.github.susimsek.tournamentbackend.exception.ResourceNotFoundException
+import io.github.susimsek.springnativegraphqlexample.exception.ResourceAlreadyExistsException
+import io.github.susimsek.springnativegraphqlexample.exception.ResourceNotFoundException
 import org.springframework.data.domain.Pageable
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.userdetails.UsernameNotFoundException
@@ -54,8 +54,8 @@ class UserService(
 
     @PreAuthorize("isAuthenticated()")
     fun getUsers(pageRequest: Pageable, filter: UserFilter?): Flux<UserPayload> {
-       return userRepository.findAllByFilter(filter, pageRequest)
-           .map(userMapper::toType)
+        return userRepository.findAllByFilter(filter, pageRequest)
+            .map(userMapper::toType)
     }
 
     @PreAuthorize("isAuthenticated()")

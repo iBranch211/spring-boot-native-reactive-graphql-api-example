@@ -3,8 +3,6 @@ package io.github.susimsek.springnativegraphqlexample.exception
 import graphql.GraphQLError
 import graphql.GraphqlErrorBuilder
 import graphql.schema.DataFetchingEnvironment
-import io.github.susimsek.tournamentbackend.exception.ResourceAlreadyExistsException
-import io.github.susimsek.tournamentbackend.exception.ResourceNotFoundException
 import org.springframework.graphql.execution.DataFetcherExceptionResolver
 import org.springframework.graphql.execution.ErrorType
 import org.springframework.stereotype.Component

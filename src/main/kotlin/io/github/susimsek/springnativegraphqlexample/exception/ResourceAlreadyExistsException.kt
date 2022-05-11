@@ -1,3 +1,3 @@
-package io.github.susimsek.tournamentbackend.exception
+package io.github.susimsek.springnativegraphqlexample.exception
 
 class ResourceAlreadyExistsException(message: String?) : RuntimeException(message)

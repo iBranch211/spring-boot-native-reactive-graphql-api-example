@@ -14,10 +14,13 @@ class UserRepositoryOverrideImpl(
     override fun findAllByFilter(filter: UserFilter?, pageable: Pageable): Flux<User> {
         val query = Query(
             Criteria.where("id").ne(null)
-            .and("activated").`is`(true))
+                .and("activated").`is`(true)
+        )
         query.with(pageable)
-        filter?.let { filter.toCriteria()?.let {
-            query.addCriteria(it) }
+        filter?.let {
+            filter.toCriteria()?.let {
+                query.addCriteria(it)
+            }
         }
 
         return mongoTemplate.find(query, User::class.java)

@@ -55,45 +55,46 @@ fun isAuthenticated(): Mono<Boolean> {
         .map(Authentication::getAuthorities)
         .map {
             it
-            .map(GrantedAuthority::getAuthority)
-            .none { it == ANONYMOUS }
+                .map(GrantedAuthority::getAuthority)
+                .none { it == ANONYMOUS }
         }
 }
 
 /**
-* Checks if the current user has any of the authorities.
-*
-* @param authorities the authorities to check.
-* @return true if the current user has any of the authorities, false otherwise.
-*/
+ * Checks if the current user has any of the authorities.
+ *
+ * @param authorities the authorities to check.
+ * @return true if the current user has any of the authorities, false otherwise.
+ */
 fun hasCurrentUserAnyOfAuthorities(vararg authorities: String): Mono<Boolean> {
-   return ReactiveSecurityContextHolder.getContext()
-       .map(SecurityContext::getAuthentication)
-       .map(Authentication::getAuthorities)
-       .map { it
-           .map(GrantedAuthority::getAuthority)
-           .any { authorities.contains(it) }
+    return ReactiveSecurityContextHolder.getContext()
+        .map(SecurityContext::getAuthentication)
+        .map(Authentication::getAuthorities)
+        .map {
+            it
+                .map(GrantedAuthority::getAuthority)
+                .any { authorities.contains(it) }
         }
 }
 
 /**
-* Checks if the current user has none of the authorities.
-*
-* @param authorities the authorities to check.
-* @return true if the current user has none of the authorities, false otherwise.
-*/
+ * Checks if the current user has none of the authorities.
+ *
+ * @param authorities the authorities to check.
+ * @return true if the current user has none of the authorities, false otherwise.
+ */
 fun hasCurrentUserNoneOfAuthorities(vararg authorities: String): Mono<Boolean> {
-   return hasCurrentUserAnyOfAuthorities(*authorities).map { !it }
+    return hasCurrentUserAnyOfAuthorities(*authorities).map { !it }
 }
 
 /**
-* Checks if the current user has a specific authority.
-*
-* @param authority the authority to check.
-* @return true if the current user has the authority, false otherwise.
-*/
+ * Checks if the current user has a specific authority.
+ *
+ * @param authority the authority to check.
+ * @return true if the current user has the authority, false otherwise.
+ */
 fun hasCurrentUserThisAuthority(authority: String): Mono<Boolean> {
-   return hasCurrentUserAnyOfAuthorities(authority)
+    return hasCurrentUserAnyOfAuthorities(authority)
 }
 
 

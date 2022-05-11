@@ -14,8 +14,8 @@ class CorsConfig {
     @Bean
     fun corsFilter(corsProperties: CorsProperties): CorsWebFilter {
         val source = UrlBasedCorsConfigurationSource()
-        val config = CorsConfiguration()
         if (!CollectionUtils.isEmpty(corsProperties.allowedOrigins)) {
+            val config = CorsConfiguration()
             config.allowedOrigins = corsProperties.allowedOrigins
             config.allowedMethods = corsProperties.allowedMethods
             config.allowedHeaders = corsProperties.allowedHeaders

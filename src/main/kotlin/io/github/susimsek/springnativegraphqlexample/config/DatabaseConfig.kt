@@ -21,7 +21,8 @@ import java.util.Optional
 @Import(value = [MongoAutoConfiguration::class, MongoReactiveAutoConfiguration::class])
 @EnableReactiveMongoAuditing(
     auditorAwareRef = "springSecurityReactiveAuditorAware",
-    dateTimeProviderRef = "dateTimeProvider")
+    dateTimeProviderRef = "dateTimeProvider"
+)
 class DatabaseConfig {
 
     @Bean

@@ -90,7 +90,8 @@ import org.springframework.nativex.type.NativeConfiguration
 @TypeHint(
     types = [
         GraphQlRepository::class],
-    access = [TypeAccess.QUERY_PUBLIC_METHODS])
+    access = [TypeAccess.QUERY_PUBLIC_METHODS]
+)
 
 @TypeHint(
     typeNames = ["graphql.analysis.QueryTraversalContext", "graphql.schema.idl.SchemaParseOrder"],
@@ -132,6 +133,7 @@ class GraphQlNativeHints : NativeConfiguration {
             }
         }
     }
+
     companion object {
         const val GRAPHQL_SCHEMA_CONFIG_PROPERTIES = "graphql/schema.graphqls"
     }

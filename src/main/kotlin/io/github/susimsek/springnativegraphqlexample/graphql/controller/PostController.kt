@@ -45,7 +45,7 @@ class PostController(private val postService: PostService) {
 
     @BatchMapping
     fun author(posts: MutableList<PostPayload>): Flux<UserPayload> {
-       return postService.getPostsWithAuthors(posts)
+        return postService.getPostsWithAuthors(posts)
     }
 
     @QueryMapping

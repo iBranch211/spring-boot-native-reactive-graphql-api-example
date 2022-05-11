@@ -23,8 +23,11 @@ class DomainUserDetailsService(private val userRepository: UserRepository) : Rea
 
         if (EmailValidator().isValid(login, null)) {
             return userRepository.findOneByEmailIgnoreCase(login)
-                .switchIfEmpty(Mono.error(
-                    UsernameNotFoundException("User with email $login was not found in the database")))
+                .switchIfEmpty(
+                    Mono.error(
+                        UsernameNotFoundException("User with email $login was not found in the database")
+                    )
+                )
                 .map { createSpringSecurityUser(login, it) }
         }
 

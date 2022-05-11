@@ -16,21 +16,24 @@ class GraphqlDateTimeConfig {
     fun graphQlOffsetDateTimeScalar(configurationProperties: GraphQlDateTimeProperties): GraphQLScalarType {
         return ScalarUtil.offsetDateTimeScalar(
             configurationProperties.offsetDateTime.scalarName,
-            configurationProperties.offsetDateTime.format)
+            configurationProperties.offsetDateTime.format
+        )
     }
 
     @Bean
     fun graphQlLocalDateScalar(configurationProperties: GraphQlDateTimeProperties): GraphQLScalarType {
         return ScalarUtil.localDateScalar(
             configurationProperties.localDate.scalarName,
-            configurationProperties.localDate.format)
+            configurationProperties.localDate.format
+        )
     }
 
     @Bean
     fun graphQlLocalDateTimeScalar(configurationProperties: GraphQlDateTimeProperties): GraphQLScalarType {
         return ScalarUtil.localDateTimeScalar(
             configurationProperties.localDateTime.scalarName,
-            configurationProperties.localDateTime.format)
+            configurationProperties.localDateTime.format
+        )
     }
 
     @Bean
@@ -39,10 +42,9 @@ class GraphqlDateTimeConfig {
         graphQlLocalDateTimeScalar: GraphQLScalarType,
         graphQlLocalDateScalar: GraphQLScalarType
     ): RuntimeWiringConfigurer {
-        return RuntimeWiringConfigurer {
-                builder ->
-                builder.scalar(graphQlOffsetDateTimeScalar)
-                builder.scalar(graphQlLocalDateTimeScalar)
+        return RuntimeWiringConfigurer { builder ->
+            builder.scalar(graphQlOffsetDateTimeScalar)
+            builder.scalar(graphQlLocalDateTimeScalar)
         }
     }
 }
