@@ -29,6 +29,7 @@ import org.springframework.context.annotation.Lazy
 import org.springframework.data.repository.query.FluentQuery
 import org.springframework.nativex.hint.TypeAccess
 import org.springframework.nativex.hint.TypeHint
+import org.springframework.validation.FieldError
 
 @TypeHint(
     types = [
@@ -79,6 +80,7 @@ import org.springframework.nativex.hint.TypeHint
         Token::class,
         User::class,
         Post::class,
+        FieldError::class,
         UserRepositoryOverride::class,
         UserRepositoryOverrideImpl::class], access = [
         TypeAccess.RESOURCE, TypeAccess.PUBLIC_CLASSES, TypeAccess.DECLARED_CLASSES,

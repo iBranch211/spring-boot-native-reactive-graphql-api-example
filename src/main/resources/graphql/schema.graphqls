@@ -5,6 +5,7 @@ type Query {
     user(id: ID!): UserPayload!
     me: UserPayload!
     post(id: ID!): PostPayload!
+    externalPost(id: ID!): PostPayload!
     posts(page: Int, size: Int, orders: [PostOrder!]): [PostPayload!]!
 }
 
@@ -14,6 +15,10 @@ type Mutation {
     createPost(input: AddPostInput!): PostPayload!
     updatePost(input: UpdatePostInput!): PostPayload!
     deletePost(id: ID!): ID!
+}
+
+type Subscription{
+    postAdded: PostPayload!
 }
 
 input LoginInput {
@@ -86,6 +91,7 @@ type UserPayload {
     username: String
     firstName: String
     lastName: String
+    name: String
     email: String
     createdDate: OffsetDateTime
     posts: [PostPayload]

@@ -65,6 +65,11 @@ class UserService(
             .switchIfEmpty(Mono.error(UsernameNotFoundException("User was not found")))
     }
 
+
+    fun getName(user: UserPayload): Mono<String> {
+        return Mono.just(user.firstName + " " + user.lastName)
+    }
+
     @PreAuthorize("isAuthenticated()")
     fun getUser(id: String): Mono<UserPayload> {
         return userRepository.findById(id)

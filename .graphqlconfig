@@ -1,5 +1,5 @@
 {
-  "name": "Spring WebFlux Security Sample Schema",
+  "name": "Spring Boot Graphql Samples",
   "schemaPath": "src/main/resources/graphql/schema.graphqls",
   "extensions": {}
 }

@@ -74,14 +74,13 @@ import graphql.schema.validation.SchemaValidationErrorCollector
 import graphql.util.NodeAdapter
 import graphql.util.NodeZipper
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass
+import org.springframework.boot.autoconfigure.graphql.GraphQlSourceBuilderCustomizer
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Lazy
 import org.springframework.core.NativeDetector
 import org.springframework.core.io.ClassPathResource
-import org.springframework.graphql.boot.GraphQlSourceBuilderCustomizer
 import org.springframework.graphql.data.GraphQlRepository
-import org.springframework.graphql.execution.GraphQlSource
 import org.springframework.nativex.hint.ResourceHint
 import org.springframework.nativex.hint.TypeAccess
 import org.springframework.nativex.hint.TypeHint
@@ -127,7 +126,7 @@ import org.springframework.nativex.type.NativeConfiguration
 class GraphQlNativeHints : NativeConfiguration {
     @Bean
     fun graphQlSourceBuilderCustomizer(): GraphQlSourceBuilderCustomizer {
-        return GraphQlSourceBuilderCustomizer { builder: GraphQlSource.Builder ->
+        return GraphQlSourceBuilderCustomizer { builder ->
             if (NativeDetector.inNativeImage()) {
                 builder.schemaResources(ClassPathResource(GRAPHQL_SCHEMA_CONFIG_PROPERTIES))
             }

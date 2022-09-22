@@ -1,5 +1,6 @@
 package io.github.susimsek.springnativegraphqlexample.graphql.controller
 
+import io.github.susimsek.springnativegraphqlexample.client.PostClient
 import io.github.susimsek.springnativegraphqlexample.graphql.DEFAULT_PAGE_NO
 import io.github.susimsek.springnativegraphqlexample.graphql.DEFAULT_SIZE
 import io.github.susimsek.springnativegraphqlexample.graphql.MAX_SIZE
@@ -9,19 +10,24 @@ import io.github.susimsek.springnativegraphqlexample.graphql.input.UpdatePostInp
 import io.github.susimsek.springnativegraphqlexample.graphql.type.PostPayload
 import io.github.susimsek.springnativegraphqlexample.graphql.type.UserPayload
 import io.github.susimsek.springnativegraphqlexample.service.PostService
+import org.reactivestreams.Publisher
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.graphql.data.method.annotation.Argument
 import org.springframework.graphql.data.method.annotation.BatchMapping
 import org.springframework.graphql.data.method.annotation.MutationMapping
 import org.springframework.graphql.data.method.annotation.QueryMapping
+import org.springframework.graphql.data.method.annotation.SubscriptionMapping
 import org.springframework.stereotype.Controller
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import javax.validation.Valid
 
+
 @Controller
-class PostController(private val postService: PostService) {
+class PostController(
+    private val postService: PostService,
+    private val postClient: PostClient) {
 
     @MutationMapping
     fun createPost(@Argument @Valid input: AddPostInput): Mono<PostPayload> {
@@ -64,5 +70,15 @@ class PostController(private val postService: PostService) {
     @QueryMapping
     fun post(@Argument id: String): Mono<PostPayload> {
         return postService.getPost(id)
+    }
+
+    @QueryMapping
+    fun externalPost(@Argument id: String): Mono<PostPayload> {
+        return postClient.getPost(id)
+    }
+
+    @SubscriptionMapping
+    fun postAdded(): Publisher<PostPayload> {
+        return postService.postAdded()
     }
 }

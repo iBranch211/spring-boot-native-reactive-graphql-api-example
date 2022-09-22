@@ -1,5 +1,6 @@
 package io.github.susimsek.springnativegraphqlexample.service
 
+import io.github.susimsek.springnativegraphqlexample.exception.ResourceNotFoundException
 import io.github.susimsek.springnativegraphqlexample.graphql.enumerated.PostStatus
 import io.github.susimsek.springnativegraphqlexample.graphql.input.AddPostInput
 import io.github.susimsek.springnativegraphqlexample.graphql.input.UpdatePostInput
@@ -8,13 +9,14 @@ import io.github.susimsek.springnativegraphqlexample.graphql.type.UserPayload
 import io.github.susimsek.springnativegraphqlexample.repository.PostRepository
 import io.github.susimsek.springnativegraphqlexample.security.getCurrentUserLogin
 import io.github.susimsek.springnativegraphqlexample.service.mapper.PostMapper
-import io.github.susimsek.springnativegraphqlexample.exception.ResourceNotFoundException
+import org.reactivestreams.Publisher
 import org.springframework.data.domain.Pageable
 import org.springframework.security.access.AccessDeniedException
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.stereotype.Component
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
+import reactor.core.publisher.Sinks
 
 @Component
 @PreAuthorize("isAuthenticated()")
@@ -24,12 +26,15 @@ class PostService(
     private val userService: UserService
 ) {
 
+    private val sink = Sinks.many().replay().latest<PostPayload>()
+
     fun createPost(input: AddPostInput): Mono<PostPayload> {
         val entity = postMapper.toEntity(input)
         entity.status = PostStatus.DRAFT
 
         return postRepository.save(entity)
             .map(postMapper::toType)
+            .doOnNext{ sink.emitNext(it, Sinks.EmitFailureHandler.FAIL_FAST)}
     }
 
     fun updatePost(input: UpdatePostInput): Mono<PostPayload> {
@@ -76,6 +81,7 @@ class PostService(
             .map(postMapper::toType)
     }
 
+    @PreAuthorize("permitAll()")
     fun getPost(id: String): Mono<PostPayload> {
         return postRepository.findById(id)
             .map(postMapper::toType)
@@ -106,5 +112,9 @@ class PostService(
                             entry.value.toMutableList()
                 }
             }
+    }
+
+    fun postAdded(): Publisher<PostPayload> {
+        return sink.asFlux()
     }
 }

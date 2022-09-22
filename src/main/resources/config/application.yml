@@ -37,12 +37,15 @@ graphql:
 security-matcher:
   ignore-patterns:
     - /graphiql
+    - /favicon.ico
   permit-all-patterns:
     - /actuator/health/**
     - /graphql
+    - /
+    - /subscriptions
 
 cors:
-  allowed-origins: http://localhost:3000
+  allowed-origins: http://localhost:3000, http://localhost:8080
   allowed-methods: GET, PUT, POST, PATCH, DELETE, OPTIONS
   allowed-headers: Origin, Accept, X-Requested-With, Authorization, Cache-Control, Content-Type
   exposed-headers: Location
